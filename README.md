@@ -45,7 +45,7 @@ Add the following receiver (and thunderball ipaddress) to alertmanager configura
     send_resolved: false
 ```
 
-## Default Alertmanager request
+## (for guidance) Default Alertmanager request
 A typical Prometheus alertmanager json payload:
 
 ```
