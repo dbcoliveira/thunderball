@@ -43,6 +43,11 @@ make build
 go mod download
 go build -o thunderball .
 ```
+## Running
+### Docker
+docker run --name thunderball -d -p 7337:7337 -e JIRA_USER="user@mydomain.com" -e JIRA_API_TOKEN="apitoken" thunderball
+### CMD
+JIRA_USER="user@mydomain.com" JIRA_API_TOKEN="apitoken" ./thunderball 
 
 ## How to plug into alertmanager
 Add the following receiver (and thunderball ipaddress) to alertmanager configuration
