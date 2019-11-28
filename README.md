@@ -1,8 +1,51 @@
 # thunderball
 Converts Prometheus alertmanager firing alerts to a jira issue.
 
-## Default Alertmanager request
+## Details
+Thunderball converts Prometheus alertmanager alerts to a jira issue. Majoraty of the fields are configureable via environment variables. Thunderball contains a default jira issue template (jiraJsonTemplate) but it can read templates from an external http/https endpoints. 
 
+## Default Jira template
+```
+const jiraJsonTemplate = `{
+    "fields": {
+       "customfield_10008": "{{ .EpicLink}}",
+       "project":
+       {
+          "key": "{{ .Project}}"
+       },
+       "summary": "{{ .Summary}}",
+       "description": "{{ .Description}}",
+       "issuetype": {
+          "name": "Bug"
+       },
+       "customfield_10019": "none",
+       "customfield_10020": "none",
+       "customfield_10021": "none",
+       "customfield_10022": [
+		{ "self": "https://project.atlassian.net/rest/api/2/customFieldOption/10007",
+		  "value" : "{{ .Environment}}"
+		}
+	   ],
+       "components": [
+		{ "name": "{{ .Component}}"}
+		],
+	   "priority":
+		{
+			"name": "{{ .Priority}}"
+		} 
+	   }
+    }`
+ ```
+## How to plug into alertmanager
+Add the following receiver (and thunderball ipaddress) to alertmanager configuration
+```
+- name: jira-notify
+  webhook_configs:
+  - url: "http://${thunderball_ip}:7337/jira"
+    send_resolved: false
+```
+
+## Default Alertmanager request
 A typical Prometheus alertmanager json payload:
 
 ```
