@@ -36,6 +36,14 @@ const jiraJsonTemplate = `{
 	   }
     }`
  ```
+ 
+## How to build thunderball
+```
+make build
+go mod download
+go build -o thunderball .
+```
+
 ## How to plug into alertmanager
 Add the following receiver (and thunderball ipaddress) to alertmanager configuration
 ```
