@@ -122,7 +122,9 @@ func setupRouter(cfg config, jsonTemplate string) *gin.Engine {
 
 		defer resp.Body.Close()
 
-		c.JSON(http.StatusOK, gin.H{"status": "healthy", "upstream": map[bool]string{true: "available", false: "unavailable"}[resp.StatusCode == 200]})
+		c.JSON(http.StatusOK, gin.H{"status": "healthy", 
+					    "upstream": map[bool]string{true: "available", 
+									false: "unavailable"}[resp.StatusCode == 200]})
 	})
 
 	r.POST("/jira", func(c *gin.Context) {
@@ -140,7 +142,10 @@ func setupRouter(cfg config, jsonTemplate string) *gin.Engine {
 			err = t.Execute(&b, struct {
 				Summary, Description, EpicLink, Project, Component, Environment, Priority string
 			}{
-				Summary:     fmt.Sprintf("%s: %s %s (%s)", payload.Alerts[0].Labels.Severity, payload.Alerts[0].Labels.AlertName, payload.Alerts[0].Labels.Job, payload.Alerts[0].Labels.Instance),
+				Summary:     fmt.Sprintf("%s: %s %s (%s)", payload.Alerts[0].Labels.Severity, 
+							 payload.Alerts[0].Labels.AlertName, 
+							 payload.Alerts[0].Labels.Job, 
+							 payload.Alerts[0].Labels.Instance),
 				Description: payload.Alerts[0].Annotations.Description,
 				EpicLink:    cfg.AlertEpicLink,
 				Project:     cfg.DefaultProject,
@@ -174,7 +179,8 @@ func setupRouter(cfg config, jsonTemplate string) *gin.Engine {
 			defer resp.Body.Close()
 
 			if resp.StatusCode >= 400 {
-				c.JSON(resp.StatusCode, gin.H{"status": "upstream server error", "upstream_response": resp.StatusCode})
+				c.JSON(resp.StatusCode, gin.H{"status": "upstream server error", 
+							      "upstream_response": resp.StatusCode})
 			}
 
 			body, err := ioutil.ReadAll(resp.Body)
