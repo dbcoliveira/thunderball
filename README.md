@@ -2,7 +2,7 @@
 A service that converts Prometheus alertmanager firing alerts to jira issues.
 
 ## Details
-Thunderball converts Prometheus alertmanager alerts to jira issues. Majoraty of the fields are configureable via environment variables. Thunderball contains a default jira issue template (jiraJsonTemplate) but it can read templates from an external http/https endpoints. 
+Thunderball converts Prometheus alertmanager alerts to jira issues. Majority of the fields are configureable via environment variables. Thunderball contains a default jira issue template (jiraJsonTemplate) but it can read templates from an external http/https endpoints. 
 
 ## Default Jira template
 ```
